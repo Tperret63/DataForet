@@ -1,0 +1,29 @@
+#' Fichier arbres de l'IFN.
+#'
+#' Base Arbres de l'IFN contenant près d'un million de lignes et 14 variables
+#'
+#' @format Fichier contenant près de 1 million de lignes et 14 variables
+#' 
+#' \describe{
+#'   \item{idp}{identifiant du point d’inventaire}
+#'   \item{a}{identifiant de l’arbre}
+#'   \item{espar}{espèce arborée}
+#'   \item{veget}{origine de l’arbre}
+#'   \item{mortb}{mortalité de branches dans le houppier}
+#'   \item{acci}{accident de l'arbre}
+#'   \item{ori}{origine de l’arbre}
+#'   \item{c13}{circonférence à 1,30 m (cm)}
+#'   \item{ir5}{accroissement radial sur 5 ans (mm)}
+#'   \item{htot}{hauteur totale (m)}
+#'   \item{hdec}{hauteur à la découpe (m)}
+#'   \item{v}{volume de l'arbre (donnée calculée)}
+#'   \item{w}{coefficient de pondération de l’arbre (donnée calculée)}
+#'   \item{Annee}{année de mesure}
+#' }
+#' 
+#' @examples
+#' data(IFNarbres)
+#' 
+#' @source \url{https://inventaire-forestier.ign.fr}
+"IFNarbres"
+
