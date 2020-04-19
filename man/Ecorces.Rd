@@ -6,13 +6,6 @@
 \title{Epaisseur d'écorce - source IFN.}
 \format{
 Fichier contenant près de 64 lignes et 4 variables
-
-\describe{
-  \item{code}{Code de l'IFN}
-  \item{libelle}{Nom vernaculaire}
-  \item{a}{ordonnée à l'origine}
-  \item{b}{pente}
-}
 }
 \source{
 \url{https://inventaire-forestier.ign.fr}
@@ -20,8 +13,18 @@ Fichier contenant près de 64 lignes et 4 variables
 \usage{
 Ecorces
 }
+\arguments{
+\item{code}{= code essence de l'IFN}
+
+\item{libelle}{= nom vernaculaire}
+
+\item{a}{= ordonnée à l'origine}
+
+\item{b}{= pente}
+}
 \description{
-Coefficients de la relation linéaire entre le diamètre de l'arbre et son épaisseur d'écorce
+Coefficients de la relation linéaire entre le diamètre de l'arbre 
+et son épaisseur d'écorce
 }
 \examples{
 data(Ecorces)
