@@ -5,17 +5,7 @@
 \alias{IFNplacettes}
 \title{Fichier placettes de l'IFN.}
 \format{
-Fichier contenant près de 87535 lignes et 8 variables
-
-\describe{
-  \item{idp}{identifiant du point d’inventaire}
-  \item{xl93, yl93}{coordonnées (latitude, longitude) en Lambert 93}
-  \item{ser}{sylvoécorégion}
-  \item{csa}{couverture du sol}
-  \item{dc}{type de coupe}
-  \item{dist}{distance de débardage}
-  \item{Annee}{année de mesure}
-}
+Data frame contenant près contenant 87535 lignes et 8 variables
 }
 \source{
 \url{https://inventaire-forestier.ign.fr}
@@ -23,8 +13,23 @@ Fichier contenant près de 87535 lignes et 8 variables
 \usage{
 IFNplacettes
 }
+\arguments{
+\item{idp}{= identifiant du point d’inventaire}
+
+\item{xl93, }{yl93 = coordonnées (latitude, longitude) en Lambert 93}
+
+\item{ser}{= sylvoécorégion}
+
+\item{csa}{= couverture du sol}
+
+\item{dc}{= type de coupe}
+
+\item{dist}{= distance de débardage en m}
+
+\item{Annee}{= année de mesure}
+}
 \description{
-Base Placettes de l'IFN contenant près d'un million de lignes et 14 variables
+localisation des placettes de l'IFN.
 }
 \examples{
 data(IFNplacettes)

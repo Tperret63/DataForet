@@ -5,12 +5,7 @@
 \alias{decChaude}
 \title{Décroissances métriques des tarifs Chaudé.}
 \format{
-Table contenant 19 lignes et 21 variables
-
-\describe{
-  \item{Classe}{Classe de diamètre}
-  \item{Ch1 à Ch20}{20 numéros de tarifs Chaudé}
-}
+data frame contenant 19 lignes et 21 variables
 }
 \source{
 Vade-mecum du forestier
@@ -18,8 +13,14 @@ Vade-mecum du forestier
 \usage{
 decChaude
 }
+\arguments{
+\item{Classe}{= classe de diamètre en cm}
+
+\item{Ch1}{à Ch20 = 20 numéros de tarifs Chaudé}
+}
 \description{
-Coefficients des décroissances métriques variables pour les tarifs de cubage Chaudé à 2 entrées
+Coefficients des décroissances métriques variables exprimées en cm/m
+pour les tarifs de cubage Chaudé à 2 entrées
 }
 \examples{
 data(decChaude)

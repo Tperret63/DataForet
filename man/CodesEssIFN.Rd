@@ -5,18 +5,18 @@
 \alias{CodesEssIFN}
 \title{Codification des essences par l'IFN.}
 \format{
-Fichier contenant près de 142 lignes et 2 variables
-
-\describe{
-  \item{code}{Code de l'IFN}
-  \item{libelle}{Nom vernaculaire}
-}
+data frame contenant près de 142 lignes et 2 variables
 }
 \source{
 \url{https://inventaire-forestier.ign.fr}
 }
 \usage{
 CodesEssIFN
+}
+\arguments{
+\item{code}{= code de l'IFN}
+
+\item{libelle}{= Nom vernaculaire}
 }
 \description{
 Table permettant de faire la correespondance entre le code IFN et le nom vernaculaire

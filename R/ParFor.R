@@ -1,14 +1,14 @@
-#' Exemple de périmètres
+#' Exemple de parcellaire forestier
 #'
-#' @description Périmètres de 4 forêts domaniales
+#' @description Cas de la FD de Montargis
 #'
 #' @format Fichier géoréférencé au format sf avec la projection Lambert93 (EPSG=2154).
 #' 
-#' @param IIDTN_FRT = identifiant de la forêt
-#' @param LLIB_FRT = nom de la forêt
+#' @param NumPar = numéro de la parcelle
+#' @param geometry = géométrie
 #' 
 #' @examples
-#' data(FD)
+#' data(ParFor)
 #' 
 #' @source \url{https://www.data.gouv.fr/fr/datasets/onf-contour-des-forets-publiques/}
-"FD"
+"ParFor"
