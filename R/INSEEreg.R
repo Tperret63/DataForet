@@ -1,4 +1,4 @@
-#' Régions françaises français.
+#' Régions françaises.
 #'
 #' @description Liste des régions françaises existantes au 1er janvier 2017.
 #'

@@ -3,7 +3,7 @@
 \docType{data}
 \name{INSEEreg}
 \alias{INSEEreg}
-\title{Régions françaises français.}
+\title{Régions françaises.}
 \format{
 Data frame contenant 18 lignes et 4 variables.
 }
