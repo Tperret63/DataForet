@@ -10,6 +10,6 @@
 #' @param Qual = qualité (3m pour les feuillus et 6m pour les résineux)
 #' 
 #' @examples
-#' data(PU)
+#' data(PUafi)
 #' 
 #' @source Association Futaie Irrégulière
