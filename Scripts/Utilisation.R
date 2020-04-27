@@ -1,3 +1,22 @@
+# -------- INSEE --------
+## Mise à jour coefficient de transformation euros constants
+library(rvest)
+library(dplyr)
+
+load("data/INSEEpa.rda")
+
+h <- read_html("https://www.insee.fr/fr/statistiques/serie/ajax/010605954") # lit la page web de l'INSEE avec les données 
+PA <- html_node(h,"table") %>%  html_table() # récupère les coefficients sous forme de tableau directement de la page web
+
+new <- PA %>% 
+  mutate(Valeur = str_replace(Valeur, ",", ".")) %>% 
+  filter(Année == max(Année)) %>% 
+  mutate(Monnaie = 1) %>% 
+  rename(Infla = Valeur)
+INSEEpa <- rbind(INSEEpa, new) %>% 
+  mutate(Infla =as.numeric(Infla))
+
+
 ser <- st_read("~/pCloud Drive/Bureau/GeoData/Limites/Milieux/ser_l93/ser_l93.shp") %>% 
   mutate(codeser = as.character(codeser),
          NomSER = as.character(NomSER)) %>% 
@@ -37,18 +56,14 @@ rnIFN <- st_read("~/pCloud Drive/Bureau/GeoData/Limites/Milieux/rn250_l93_shp-2/
   ms_simplify(keep=0.1, keep_shapes = T, drop_null_geometries = F)
 st_write(rnIFN, "rnIFN.shp")
 
-# ------------ INSEE --------
+
 INSEEcom <- read.delim("~/pCloud Sync/Packages/DataForet/temp/INSEEcom.txt", encoding="latin1")
 INSEEdep <- read.delim("~/pCloud Sync/Packages/DataForet/temp/INSEEdep.txt", encoding="latin1") %>% 
   select(-TNCC)
 INSEEreg <- read.delim("~/pCloud Sync/Packages/DataForet/temp/INSEEreg.txt", encoding="latin1") %>% 
   select(-TNCC)
 
-INSEEpa <- INSEEpa %>% 
-  rename(Monnaie = Coefft)
-new = data.frame(Année = 2019,
-                 Infla = 104.23,
-                 Monnaie = 1)
-INSEEpa <- rbind(INSEEpa, new)
 
-INSEEpa <- PA
+
+
+
