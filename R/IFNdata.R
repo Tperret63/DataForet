@@ -12,6 +12,7 @@
 #'
 #' @import tidyverse
 #' @import data.table
+#' @import rvest
 #'
 #' @examples
 #' IFNdata()
