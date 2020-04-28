@@ -18,9 +18,9 @@
 
 # Hauteur en m et Diam130 en cm : nécessite un df qui déclarer variable hauteur totale et circonférence
 Tarif_EMERGE <- function(df, Hauteur, Circ130){
-  data(VolEmerge.rda)
-  data(CodesEssIFN.rda)
- 
+  data(VolEmerge)
+  data(CodesEssIFN)
+  
   df <- df %>% 
     left_join(CodesEssIFN, by = c("espar"="code")) %>% 
     left_join(VolEmerge[,1:2], by = c("espar"="CodeIFN")) %>%
@@ -32,7 +32,6 @@ Tarif_EMERGE <- function(df, Hauteur, Circ130){
                                    | grepl("66",espar)| grepl("59",espar)
                                    | grepl("55",espar),"Résineux", "Feuillus"))) %>% 
     left_join(VolEmerge, by = c("Essence")) %>% 
-    mutate(VTot = ((Hauteur*(Circ130*10^-2)^2)/(4*pi*(1-(1.3/Hauteur))^2)) * 
-             (A + B*(sqrt(Circ130*10^-2)/Hauteur) + C*(Hauteur/(Circ130*10^-2))))
+    mutate(VTot = ((Hauteur*(Circ130*10^-2)^2)/(4*pi*(1-(1.3/Hauteur))^2)) * (A + B*(sqrt(Circ130*10^-2)/Hauteur) + C*(Hauteur/(Circ130*10^-2))))
   return(df)
 }
