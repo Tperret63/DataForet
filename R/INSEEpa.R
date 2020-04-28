@@ -14,5 +14,6 @@
 #' @examples
 #' data(INSEEpa)
 #'  
-#' @source \url{https://www.insee.fr/fr/information/2417794}
+#' @source \url{https://www.insee.fr/fr/statistiques/serie/010605954#Tableau}
+
 "INSEEpa"

@@ -8,7 +8,7 @@
 Data frame contenant 70 lignes et 3 variables.
 }
 \source{
-\url{https://www.insee.fr/fr/information/2417794}
+\url{https://www.insee.fr/fr/statistiques/serie/010605954#Tableau}
 }
 \usage{
 INSEEpa
