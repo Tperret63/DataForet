@@ -21,6 +21,16 @@ MAJ_INSEEpa <- function(){
 }
 
 
+# ----- Données IFN -----
+h <- read_html("https://inventaire-forestier.ign.fr/spip.php?article707&ID_TELECHARGEMENT=18429&TOKEN=6e5cf5998c9b2f6842d050c1c61d43ec") # lit la page web de l'INSEE avec les données 
+test <- html_nodes(h, "a[type]") %>% html_attr("href")
+test <- test[grepl("zip",test)] # fichiers zip à télécharger
+
+for (i in (2:length(test))) {
+  url <- paste("https://inventaire-forestier.ign.fr/", test[i], sep = "")
+  download(url, dest="fichier.zip", mode="wb")
+  unzip("fichier.zip") }
+
 # ------- Utilisation -----
 res <- IFNdata(FALSE)
 IFNarbres <- res$IFNArbres
