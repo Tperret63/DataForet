@@ -77,6 +77,7 @@ IFNdata <- function (enrg = TRUE) {
   IFNarbres$ir5 <- as.numeric(as.character(IFNarbres$ir5))
   IFNarbres$v   <- as.numeric(as.character(IFNarbres$v))
   IFNarbres$w   <- as.numeric(as.character(IFNarbres$w))
+  IFNarbres$htot <- as.numeric(as.character(IFNarbres$htot))
   # --------- Selection colonnes
   IFNarbres <- IFNarbres %>%
     dplyr::select(idp,a,espar,veget,mortb,acci,ori,mortb,c13,ir5,htot,hdec,v,w,Annee)
