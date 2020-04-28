@@ -31,9 +31,16 @@ IFNdata <- function (enrg = TRUE) {
   IFNplacettes <- data.table()
 
   # --------- Boucle Import par annee
-  rep <- "https://inventaire-forestier.ign.fr/IMG/zip/"
-  dates <- c(as.character(2018:2005))
+  page <- read_html("https://inventaire-forestier.ign.fr/spip.php?article707&ID_TELECHARGEMENT=18429&TOKEN=6e5cf5998c9b2f6842d050c1c61d43ec") # lit le lien IGN pour télécharger les données
+  DataZip <- html_nodes(h, "a[type]") %>% html_attr("href")
+  DataZip <- DataZip[grepl("zip",DataZip)] # fichiers zip à télécharger
 
+  dates <- str_sub(DataZip,9,12) # récupère les dates des campagnes (dans intitulé fichiers zip)
+  dates <- dates[-1] # Premier zip à télécharger = données explicatives
+  dates <- unique(dates)
+    
+  rep <- "https://inventaire-forestier.ign.fr/IMG/zip/"
+  
   for (i in 1:length(dates)){
     an = as.integer(substr(dates[i], 1, 4))
     # --------- Telecharger et decompacter
