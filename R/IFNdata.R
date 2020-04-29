@@ -3,7 +3,7 @@
 #' @encoding UTF-8
 #'
 #' @description Cette fonction permet de télécharger les données brutes de l'IFN à partir du site
-#' https://inventaire-forestier.ign.fr/IMG/zip/. Elle charge les données de 2005 à 2018.
+#' https://inventaire-forestier.ign.fr/IMG/zip/. Elle charge les données de 2005 aux dernières campagnes de mesures.
 #'
 #' @return Cette fonction enregistre dans le dossier data les deux tables IFNarbres.rda et IFNplacettes.rda.
 #'
