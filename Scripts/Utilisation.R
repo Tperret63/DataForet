@@ -241,19 +241,6 @@ usethis::use_data(TypoClimat, overwrite = T)
 
 # Attention placettes doubles !!!
 IFNplacettes <- IFNplacettes %>% distinct()
-<<<<<<< HEAD
-=======
-
-# Climat
-TypoClimat <- Communes %>% 
-  left_join(Climat, by = "INSEE") %>%
-  filter(Type %in% 1:8) %>%
-  mutate(Type = as.character(Type)) %>%
-  group_by(Type) %>%
-  summarise() %>%
-  st_sf() %>% 
-  ms_simplify()
->>>>>>> 0247ed86d1f40c4e7f8e5811835ef8f934b0163a
 
 # Climat
 TypoClimat <- Communes %>% 
