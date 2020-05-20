@@ -223,6 +223,7 @@ INSEEreg <- read.delim("~/pCloud Sync/Packages/DataForet/temp/INSEEreg.txt", enc
 
 # ------------- Sauvegarde
 usethis::use_data(IFNarbres, overwrite = T)
+usethis::use_data(IFNplacettes, overwrite = T)
 usethis::use_data(ser, overwrite = T)
 usethis::use_data(FD, overwrite = T)
 usethis::use_data(ParFor, overwrite = T)
@@ -234,5 +235,20 @@ usethis::use_data(INSEEdep, overwrite = T)
 usethis::use_data(INSEEreg, overwrite = T)
 usethis::use_data(CodesIFNmod, overwrite = T)
 usethis::use_data(INSEEpa, overwrite = T)
+usethis::use_data(Climat, overwrite = T)
+usethis::use_data(Communes, overwrite = T)
+usethis::use_data(TypoClimat, overwrite = T)
 
+# Attention placettes doubles !!!
+IFNplacettes <- IFNplacettes %>% distinct()
+
+# Climat
+TypoClimat <- Communes %>% 
+  left_join(Climat, by = "INSEE") %>%
+  filter(Type %in% 1:8) %>%
+  mutate(Type = as.character(Type)) %>%
+  group_by(Type) %>%
+  summarise() %>%
+  st_sf() %>% 
+  ms_simplify()
 
