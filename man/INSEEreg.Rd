@@ -16,7 +16,7 @@ INSEEreg
 \arguments{
 \item{REGION}{= Code région}
 
-\item{CHEFLIEU}{= Chef-lieu d'arrondissement, de département, de région ou bureau centralisateur de canton}
+\item{CHEFLIEU}{= Chef-lieu de région}
 
 \item{NCC}{= Nom en clair (majuscules)}
 

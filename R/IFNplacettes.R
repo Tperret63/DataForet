@@ -11,6 +11,7 @@
 #' @param dc = type de coupe
 #' @param dist = distance de débardage en m
 #' @param Annee = année de mesure
+#' @param Type = type de climat
 #' 
 #' @examples
 #' data(IFNplacettes)

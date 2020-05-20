@@ -5,7 +5,7 @@
 #' @format Data frame contenant 18 lignes et 4 variables.
 #' 
 #' @param REGION = Code région
-#' @param CHEFLIEU = Chef-lieu d'arrondissement, de département, de région ou bureau centralisateur de canton
+#' @param CHEFLIEU = Chef-lieu de région
 #' @param NCC = Nom en clair (majuscules)
 #' @param NCCENR = Nom en clair (typographie riche)
 #' 
@@ -14,3 +14,5 @@
 #'  
 #' @source \url{https://www.insee.fr/fr/information/2666684#titre-bloc-26}
 "INSEEreg"
+
+data("INSEEreg")

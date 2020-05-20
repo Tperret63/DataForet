@@ -23,7 +23,6 @@
 #'@author BRUCIAMACCHIE Max
 
 #' @export IFNdata
-#'
 
 IFNdata <- function (enrg = TRUE) {
 

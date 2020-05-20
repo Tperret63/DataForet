@@ -27,6 +27,8 @@ IFNplacettes
 \item{dist}{= distance de débardage en m}
 
 \item{Annee}{= année de mesure}
+
+\item{Type}{= type de climat}
 }
 \description{
 localisation des placettes de l'IFN.
