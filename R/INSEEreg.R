@@ -13,6 +13,7 @@
 #' data(INSEEreg)
 #'  
 #' @source \url{https://www.insee.fr/fr/information/2666684#titre-bloc-26}
+#' 
 "INSEEreg"
 
-data("INSEEreg")
+
