@@ -238,6 +238,7 @@ usethis::use_data(INSEEpa, overwrite = T)
 usethis::use_data(Climat, overwrite = T)
 usethis::use_data(Communes, overwrite = T)
 usethis::use_data(TypoClimat, overwrite = T)
+usethis::use_data(PlanComptable, overwrite = T)
 
 # Attention placettes doubles !!!
 IFNplacettes <- IFNplacettes %>% distinct()
