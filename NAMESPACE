@@ -3,4 +3,5 @@
 export(IFNdata)
 export(Tarif_EMERGE)
 import(data.table)
+import(rvest)
 import(tidyverse)
