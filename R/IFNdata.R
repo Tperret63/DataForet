@@ -33,7 +33,8 @@ IFNdata <- function (enrg = TRUE) {
 
   # --------- Boucle Import par annee
   page <- read_html("https://inventaire-forestier.ign.fr/spip.php?article707&ID_TELECHARGEMENT=18429&TOKEN=6e5cf5998c9b2f6842d050c1c61d43ec") # lit le lien IGN pour télécharger les données
-  DataZip <- html_nodes(h, "a[type]") %>% html_attr("href")
+  # DataZip <- html_nodes(h, "a[type]") %>% html_attr("href")
+  DataZip <- html_nodes(page, "a[type]") %>% html_attr("href")
   DataZip <- DataZip[grepl("zip",DataZip)] # fichiers zip à télécharger
 
   dates <- str_sub(DataZip,9,12) # récupère les dates des campagnes (dans intitulé fichiers zip)
@@ -47,7 +48,7 @@ IFNdata <- function (enrg = TRUE) {
     # --------- Telecharger et decompacter
     tempRep <- tempdir()
     temp <- tempfile()
-    repTour <- paste0(rep,dates[i],".zip")
+    repTour <- paste0(rep,dates[i],"-fr.zip")
     download.file(repTour, temp)
     liste <- unzip(temp, exdir=tempRep)
     if(sum(grepl("/trees_forest", liste))>0) {
