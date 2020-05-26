@@ -221,10 +221,17 @@ INSEEdep <- read.delim("~/pCloud Sync/Packages/DataForet/temp/INSEEdep.txt", enc
 INSEEreg <- read.delim("~/pCloud Sync/Packages/DataForet/temp/INSEEreg.txt", encoding="latin1") %>% 
   select(-TNCC)
 
+
+library(rmapshaper)
+data("ser")
+ser25 <- ser %>% 
+  ms_simplify(keep=0.25)
+
 # ------------- Sauvegarde
 usethis::use_data(IFNarbres, overwrite = T)
 usethis::use_data(IFNplacettes, overwrite = T)
 usethis::use_data(ser, overwrite = T)
+usethis::use_data(ser25, overwrite = T)
 usethis::use_data(FD, overwrite = T)
 usethis::use_data(ParFor, overwrite = T)
 usethis::use_data(bioreg, overwrite = T)
