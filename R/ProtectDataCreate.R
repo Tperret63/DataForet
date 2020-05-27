@@ -73,11 +73,9 @@ ProtectDataCreate <- function(){
     file.remove(files)
     unlink(temp); unlink(tempRep)
   }
-  # cat("Fin de la boucle, ........... regroupement, vérification de la géométrie")
-  # StatutProtect <- StatutProtect %>%
-  #   st_make_valid() %>%
-  #   group_by(Theme) %>%
-  #   summarise()
+  cat("Fin de la boucle, ........... vérification de la géométrie")
+  StatutProtect <- StatutProtect %>%
+    st_make_valid()
 
   return(StatutProtect)
 }
