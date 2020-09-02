@@ -40,9 +40,7 @@ IFNdata <- function (enrg = TRUE) {
   dates <- str_sub(DataZip,9,12) # récupère les dates des campagnes (dans intitulé fichiers zip)
   dates <- dates[-1] # Premier zip à télécharger = données explicatives
   dates <- unique(dates)
-    
-  dates <- "2014"
-    
+  
   rep <- "https://inventaire-forestier.ign.fr/IMG/zip/"
   
   for (i in 1:length(dates)){
