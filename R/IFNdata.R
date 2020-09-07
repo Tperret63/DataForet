@@ -87,7 +87,7 @@ IFNdata <- function (enrg = TRUE) {
   IFNarbres_morts$w   <- as.numeric(as.character(IFNarbres_morts$w))
   # --------- Selection colonnes
   IFNarbres <- IFNarbres %>%
-    dplyr::select(idp,a,espar,veget,mortb,acci,ori,mortb,c13,ir5,htot,hdec,v,w,Annee) %>% 
+    dplyr::select(idp,a,espar,veget,mortb,acci,ori,mortb,c13,ir5,htot,hdec,v,w,Annee)
   
   tab <- IFNarbres %>% # correction code essence 2014
     filter(Annee == 2014) %>% 
