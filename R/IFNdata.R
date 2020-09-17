@@ -40,7 +40,7 @@ IFNdata <- function (enrg = TRUE) {
   dates <- str_sub(DataZip,9,12) # récupère les dates des campagnes (dans intitulé fichiers zip)
   dates <- dates[-1] # Premier zip à télécharger = données explicatives
   dates <- unique(dates)
-    
+  
   rep <- "https://inventaire-forestier.ign.fr/IMG/zip/"
   
   for (i in 1:length(dates)){
@@ -88,6 +88,19 @@ IFNdata <- function (enrg = TRUE) {
   # --------- Selection colonnes
   IFNarbres <- IFNarbres %>%
     dplyr::select(idp,a,espar,veget,mortb,acci,ori,mortb,c13,ir5,htot,hdec,v,w,Annee)
+  
+  tab <- IFNarbres %>% # correction code essence 2014
+    filter(Annee == 2014) %>% 
+    mutate(espar2 = ifelse(espar %in% c("2","3","4","5","6","7","9"), paste("0",espar,sep=""),NA),
+           espar3 = ifelse(is.na(espar2), as.character(espar), espar2),
+           espar4 = as.factor(espar3)) %>% 
+    dplyr::select(-c(espar,espar2,espar3)) %>% 
+    dplyr::rename(espar = espar4) %>% 
+    dplyr::select(idp,a,espar,veget,mortb,acci,ori,c13,ir5,htot,hdec,v,w,Annee)
+  IFNarbres <- IFNarbres %>% 
+    filter(Annee != 2014) %>% 
+    rbind(tab)
+  
   IFNplacettes <- IFNplacettes %>%
     dplyr::select(idp,xl93,yl93,ser,csa,dc,dist,Annee)
   IFNarbres_morts <- IFNarbres_morts %>%
@@ -103,3 +116,5 @@ IFNdata <- function (enrg = TRUE) {
     return(out)
   }
 }
+
+
