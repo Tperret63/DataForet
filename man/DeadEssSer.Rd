@@ -18,7 +18,7 @@ DeadEssSer(ess)
 \description{
 La fonction DeadEssSer fournit par sylvoécorégions le taux de mortalité par essence. 
 Il est défini comme le le ratio en volume des arbres morts sur pied par rapport aux arbres vivants, 
-sur les deux dernières péiodes de 5 ans.
+sur les deux dernières périodes de 5 ans.
 }
 \examples{
 ess = "05"

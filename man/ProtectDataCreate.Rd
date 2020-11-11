@@ -10,7 +10,7 @@ https://inpn.mnhn.fr/docs/Shape
 ProtectDataCreate()
 }
 \value{
-La fonction crée un objet géroréférencé au format sf.
+La fonction crée un objet géoréférencé au format sf.
 }
 \description{
 La fonction crée un objet qui rassemble tous les statuts de protections disponibles sur

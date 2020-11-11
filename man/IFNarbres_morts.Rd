@@ -36,7 +36,7 @@ IFNarbres_morts
 }
 \description{
 Base arbres morts de l'IFN inventoriés sur les placettes forestières contenant pas moins de 50 000 lignes et 10 variables.
- Les modalités des variables espar, veget , datemort et ori se trouvent 
+ Les modalités des variables espar, veget, datemort et ori se trouvent 
  dans la table CodesIFNmod. Les modalités de la variable espar se trouvent dans la table
  CodesEssIFN.
 }

@@ -1,6 +1,6 @@
 #' Volume total d'un arbre selon le tarif de cubage du projet EMERGE
 #'
-#' @description La fonction Tarif_EMERGE est un tarif à trois entrées proposé par l'ONF. 
+#' @description La fonction Tarif_EMERGE est un tarif de cubage à trois entrées proposé par l'ONF. 
 #' Elle nécessite en entrée un data frame contenant par arbre sa hauteur totale (m),
 #' circonférence (cm) et l'essence identifiée par le code IFN.
 #'

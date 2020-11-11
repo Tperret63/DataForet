@@ -2,7 +2,7 @@
 #'
 #' @description Carte des Grandes Régions Ecologiques
 #'
-#' @format Fichier géoréférencé au format sf contenant 11 grandes régions écologiques
+#' @format Fichier géoréférencé au format sf contenant les 11 grandes régions écologiques
 #' 
 #' @param greco = identifiant de la GRECO
 #' @param geometry = géométrie

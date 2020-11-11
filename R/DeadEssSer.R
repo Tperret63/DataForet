@@ -2,7 +2,7 @@
 #'
 #' @description La fonction DeadEssSer fournit par sylvoécorégions le taux de mortalité par essence. 
 #' Il est défini comme le le ratio en volume des arbres morts sur pied par rapport aux arbres vivants, 
-#' sur les deux dernières péiodes de 5 ans. 
+#' sur les deux dernières périodes de 5 ans. 
 #'
 #' @format La fonction renvoie le taux de mortalité sous forme de tableau ou de cartes.
 #' 
@@ -45,6 +45,7 @@ DeadEssSer <- function(ess){
   filter(Ess == nomEss)
   
   t2 <- IFNarbres_morts %>% 
+    filter(veget %in% c("5","C")) %>% 
     left_join(IFNplacettes[, c("idp", "ser")], by = "idp") %>% 
     mutate(Ess = ifelse(espar == ess, nomEss, "Autres")) %>%
     group_by(Annee, ser, Ess) %>% 
@@ -71,7 +72,7 @@ DeadEssSer <- function(ess){
   tab1 <- ser %>%
     rename(ser = codeser) %>% 
     left_join(tab, by = "ser") %>% 
-    mutate(Période="10 ans")
+    mutate(Période=paste(last-9, last-5, sep="-"))
   
   laps=5
   tab <- t1 %>% 
@@ -86,15 +87,15 @@ DeadEssSer <- function(ess){
   tab2 <- ser %>%
     rename(ser = codeser) %>% 
     left_join(tab, by = "ser") %>% 
-    mutate(Période="5 ans")
+    mutate(Période=paste(last-4, last, sep="-"))
   
   tab <- rbind(tab1, tab2)
   
   map <- ggplot(tab, aes(fill=Part)) + 
     geom_sf() +
-    facet_wrap(~Période, ncol=2) +
+    facet_wrap(~ Période, ncol=2) +
     scale_fill_gradient(low = "white", high = "darkred", 
-                        na.value = "grey80") +
+                        na.value = "grey90") +
     coord_sf(datum = sf::st_crs(2154)) +
     theme_void()
   

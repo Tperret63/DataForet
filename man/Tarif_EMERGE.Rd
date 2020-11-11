@@ -20,7 +20,7 @@ Tarif_EMERGE(df, Haut, C130)
 \item{C130}{= circonférence mesurée à 1,30m en cm}
 }
 \description{
-La fonction Tarif_EMERGE est un tarif à trois entrées proposé par l'ONF. 
+La fonction Tarif_EMERGE est un tarif de cubage à trois entrées proposé par l'ONF. 
 Elle nécessite en entrée un data frame contenant par arbre sa hauteur totale (m),
 circonférence (cm) et l'essence identifiée par le code IFN.
 }

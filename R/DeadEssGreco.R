@@ -53,7 +53,8 @@ DeadEssGreco <- function(ess){
     mutate(Pourc = VolT / sum(VolT)) %>% 
     dplyr::select(Annee:Ess,VolT,Pourc)
   
-  t2 <- IFNarbres_morts %>% 
+  t2 <- IFNarbres_morts %>%
+    filter(veget %in% c("5","C")) %>% 
     left_join(plac[, c("idp", "greco")], by = "idp") %>% 
     mutate(Ess = ifelse(espar == ess, nomEss, "Autres")) %>%
     group_by(Annee, greco, Ess) %>% 
@@ -98,7 +99,7 @@ DeadEssGreco <- function(ess){
                         na.value = "grey70") +
     coord_sf(datum = sf::st_crs(2154)) +
     theme_void() + 
-    labs(title =paste("Part de l'essence",nomEss," en",last))
+    labs(title =paste(nomEss,"-",last, ": part"), fill="Part")
   
   map1 <- ggplot(t2, aes(fill=Part)) + 
     geom_sf() +
@@ -106,7 +107,7 @@ DeadEssGreco <- function(ess){
                         na.value = "grey70") +
     coord_sf(datum = sf::st_crs(2154)) +
     theme_void() + 
-    labs(title =paste("Taux de l'essence",nomEss,"en",last))
+    labs(title =paste(nomEss,"-",last, ": taux"), fill="Taux")
 
   out <- list(tab, g, map, g1, map1)
   names(out) <- c("tab", "gpart", "mappart","gmort", "mapmort")

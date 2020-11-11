@@ -1,7 +1,7 @@
 #' Coefficients par essence pour le tarif de cubage issu du projet EMERGE (volume total)
 #'
-#' @description Coefficients du tarif de cubage issu du projet EMERGE pour calculer le volume total 
-#' d'un arbre (volume total aérien, jusqu'à extrêmité des rameaux), par essence
+#' @description Coefficients du tarif de cubage issu du projet EMERGE nécessaires pour calculer le volume total 
+#' d'un arbre (volume total aérien, jusqu'à extrêmité des rameaux), par essence.
 #'
 #' @format data frame
 #' 

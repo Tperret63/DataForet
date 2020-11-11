@@ -3,7 +3,7 @@
 #' @description La fonction crée un objet qui rassemble tous les statuts de protections disponibles sur
 #' le serveur du Muséum d'Histoire naturelle.
 #'
-#' @return La fonction crée un objet géroréférencé au format sf.
+#' @return La fonction crée un objet géoréférencé au format sf.
 #'
 #' @import sf
 #' @import tidyverse

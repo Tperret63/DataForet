@@ -1,0 +1,406 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage[french]{babel}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eurosym}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{fancyvrb}
+\usepackage{float}
+\usepackage{fix-cm} % Allows increasing the font size of specific fonts beyond LaTeX default specifications
+\usepackage{ifthen}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{eso-pic}
+\usepackage{geometry}
+\usepackage{multicol}
+\usepackage{caption}
+
+\voffset -2cm
+\hoffset 0cm
+\oddsidemargin 0cm
+\evensidemargin -0.5cm
+\textwidth 17cm
+\topmargin 1cm
+\textheight 24cm
+\parindent 0cm
+\columnsep 0.7cm
+
+\setcounter{tocdepth}{3}     % Dans la table des matieres
+\setcounter{secnumdepth}{3}  % Avec un numero.
+
+% \setlength{\oddsidemargin}{0mm} % Adjust margins to center the colored title box
+% \setlength{\evensidemargin}{0mm} % Margins on even pages - only necessary if adding more content to this template
+\addto\captionsfrench{\def\tablename{Tableau}}
+\addto\captionsfrench{\def\figurename{Figure}}
+% \newcommand{\HRule}[1]{\hfill \rule{0.2\linewidth}{#1}} % Horizontal rule at the bottom of the page, adjust width here
+\definecolor{grey}{rgb}{0.9,0.9,0.9}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+<<OptionsGenerales, include=FALSE>>=
+opts_chunk$set(concordance=T,include=T,tidy=F, warning=F, comment=F, error=F)
+opts_chunk$set(size='small')
+opts_chunk$set(fig.path='Figures/', dev='pdf')
+opts_chunk$set(fig.align='center',fig.show='hold')
+options(width=45)
+opts_knit$set(eval.after = 'fig.cap') # evaluate fig.cap after the chunk
+par(mar=c(0,0,0,0))
+options(scipen=999) # disable scientific notation
+@
+
+<<Librairies, echo=F, include=F>>=
+library(Forestree, quietly = T)
+library(xtable)
+library(kableExtra, quietly = T)
+library(tcltk)
+library(readxl)
+library(sf)
+# library(openxlsx)
+library(tidyverse)
+library(Hmisc)
+library(ForestTools)
+library(PPtools)
+library(DataForet)
+library(raster)
+library(gridExtra)
+@
+
+\begin{document}
+
+\begin{center}
+\begin{LARGE}
+Package DataForet\\
+\end{LARGE}
+Max Bruciamacchie, Marie-Laure Martin \\
+mars 2020\\
+\end{center}
+
+\vspace{2cm}
+Ce package R a été construit dans le cadre de la formation des ingénieurs forestiers (FIF) d'AgroParisTech. Il contient des bases de données utiles aux gestionnaires forestiers. Il fonctionne en interaction avec deux autres packages, Forestree et PPtools.\\
+
+
+\tableofcontents
+
+\newpage
+
+\section{Bases de données}
+\subsection{bioreg}
+Cette base contient les limites au format sf de 3 grandes régions biologiques : plaines et collines, montagnes, région méditerranéenne. Le script ci-après est un exemple d'utilisation. Il permet de comparer les limites des biorégions avec celles des GRECO.
+<<eval=F>>=
+data(bioreg)
+plot(st_geometry(bioreg), border='blue', lwd=2)
+plot(st_geometry(greco), add=T, border='red')
+
+@
+
+\subsection{Climat}
+Cette base fournit des informations climatiques (températures, précipitations) sur les communes de la France métropolitaine. Chaque commune est également classée par rapport à une typologie de climat contenant 8 modalités : 1:Montagne, 2:Semi-continental, 3:Océanique dégradé, 4:Océanique altéré, 5:Océanique, 6:Méditerranéen altéré, 7:Bassin du Sud-Ouest, 8:Méditerranéen.\\
+Ces informations sont issues de http://cybergeo.revues.org/26894?file=1\\
+
+Le script ci-après est un exemple d'utilisation. Il permet de représenter les 8 grands types de climat. Les limites en blanc sont celles des GRECO.
+<<eval=F>>=
+library(sf)
+library(tidyverse)
+
+data(greco)
+data(Climat)
+data(Communes)
+
+Communes <- Communes %>% 
+  left_join(Climat, by = "INSEE") %>% 
+  filter(Type %in% 1:8) %>%  
+  mutate(Type = as.character(Type)) %>% 
+  group_by(Type) %>% 
+  summarise() %>% 
+  st_sf()
+
+cols <- c("8"="firebrick3","7"="darkorange","6"="darkolivegreen2","5"="chartreuse4",
+          "4"="aquamarine3","3"="darkslategray1","2"="deepskyblue","1"="blue4")
+
+ggplot(Communes) + 
+  geom_sf(aes(color=Type, fill=Type)) +
+  scale_fill_manual(values = cols) +
+  scale_color_manual(values = cols) +
+  geom_sf(data=greco, fill=NA, color="white", size=0.5) +
+  coord_sf(datum=2154) +
+  theme_void()
+@
+
+\begin{figure}[H]
+\begin{center}
+ \includegraphics[width=17cm]{/Users/maxbruciamacchie/pCloud Sync/Packages/DataForet/Documentation/Figures/Climat.png}
+\caption{\emph{Répartition des climats en France métropolitaine.}}
+\label{Climats}
+\end{center}
+\end{figure}
+
+\subsection{CodesEssIFN}
+Cette table permet de faire la correespondance entre le code IFN et le nom vernaculaire des 142 essences arborées présentes en France métropolitaine.
+<<eval=F>>=
+data(CodesEssIFN)
+@
+
+\subsection{CodeIFNmod}
+Cette table contient par variable IFN, les modalités retenues ainsi que leur libellé. Le script ci-après fournit à titre d'exemple le code essence ainsi que le libellé.
+<<eval=F>>=
+data(CodesIFNmod)
+CodesIFNmod %>%
+  filter(Code == "espar") %>%
+  slice(6)
+@
+
+
+\subsection{Chaudé}
+Coefficients des décroissances métriques variables exprimées en cm/m pour les tarifs de cubage Chaudé à 2 entrées.
+<<eval=F>>=
+data(decChaude)
+@
+
+\subsection{Ecorces}
+Coefficients de la relation linéaire entre le diamètre de l'arbre et son épaisseur d'écorce. \\
+Source : https://inventaire-forestier.ign.fr
+<<eval=F>>=
+data(Ecorces)
+@
+
+\subsection{greco}
+Fichier géoréférencé au format sf contenant les 11 grandes régions écologiques de la France métropolitaine.
+<<eval=F>>=
+plot(st_geometry(greco), border='blue', lwd=2)
+plot(st_geometry(ser), add=T, border='red')
+@
+
+\subsection{IFNarbres}
+Base Arbres de l'IFN contenant près d'un million de lignes et 14 variables. Les modalités des variables espar, veget, mortb, acci et ori se trouvent dans la table CodesIFNmod. Les modalités de la variable espar se trouvent dans la table CodesEssIFN.\\
+Source : https://inventaire-forestier.ign.fr
+
+<<eval=F>>=
+data(IFNarbres)
+@
+
+\subsection{IFNarbres\_morts}
+Base arbres morts de l'IFN inventoriés sur les placettes forestières contenant pas moins de 50 000 lignes et 10 variables. Les modalités des variables espar, veget, datemort et ori se trouvent dans la table CodesIFNmod. Les modalités de la variable espar se trouvent dans la table CodesEssIFN.\\
+Source : https://inventaire-forestier.ign.fr
+
+<<eval=F>>=
+data(IFNarbres_morts)
+@
+
+\subsection{IFNplacettes}
+table des placettes IFN
+<<eval=F>>=
+data(IFNplacettes)
+@
+
+\subsection{Infradensite}
+Infradensités en tMS/m3 recommandées pour les principales essences forestières françaises et utilisées par l'IGN.
+<<eval=F>>=
+data(Infradensite)
+@
+
+\subsection{INSEEcom}
+Liste des communes françaises existantes au 1er janvier 2017. Cette table permet la correspondance avec les régions, départements, cantons et arrondissements.
+<<eval=F>>=
+data(INSEEcom)
+@
+
+\subsection{INSEEdep}
+Liste des départemets français existants au 1er janvier 2017. Cette table permet la correspondance avec les régions.
+<<eval=F>>=
+data(INSEEdep)
+@
+
+\subsection{INSEEpa}
+Pouvoir d'achat d'une somme en euros ou en francs d’une année donnée en une somme équivalente en euros ou en francs d’une autre année, corrigée de l’inflation observée entre les deux années.
+<<eval=F>>=
+data(INSEEpa)
+@
+
+\subsection{INSEEreg}
+<<eval=F>>=
+data(INSEEcom)
+@
+
+\subsection{PlanComptable}
+Plan comptable permettant un suivi des recettes et dépenses.
+<<eval=F>>=
+data(PlanComptable)
+@
+
+
+\subsection{PUafi}
+Cette table correspond à la mercuriale fixe des prix du bois ventilée par essence, grosseur et qualité, proposée par l'Association AFI. Ces prix ont été fixés par consensus entre les experts membres de l’association, en estimant les prix moyens du marché à l’année 1995.
+<<eval=F>>=
+data(PUafi)
+@
+
+\subsection{rnIFN}
+Fichier géoréférencé correspondant à l'ancien découpage par l'IFN de la France métropolitaine en 309 régions naturelles. Elles ont été remplacées par les sylvoécorégions.
+<<eval=F>>=
+data(rnIFN)
+@
+
+\subsection{ser}
+Fichier géoréférencé correspondant au découpage par l'IFN de la France métropolitaine en 86 sylvoécorégions. 
+<<eval=F>>=
+data(ser)
+@
+
+\subsection{VolEmerge}
+Coefficients du tarif de cubage issu du projet EMERGE nécessaires pour calculer le volume total d'un arbre (volume total aérien, jusqu'à extrêmité des rameaux), par essence.
+<<evol=F>>=
+data(VolEmerge)
+@
+
+
+\section{Exemples de valorisations}
+
+\subsection{Tarif\_EMERGE}
+La fonction Tarif\_EMERGE a comme ambition de fournir le volume total d'un arbre? C'est un tarif de cubage à trois entrées proposé par l'ONF. Cette fonction nécessite en entrée un data frame contenant par arbre sa hauteur totale (m), circonférence (cm) et l'essence identifiée par le code IFN.
+
+<<eval=F>>=
+df <- Tarif_EMERGE(df, df$Haut, df$C130)
+@
+
+
+
+\subsection{Mortalité}
+Sur toutes ses placettes depuis 2005, l'IFN recense sur 3 cercles comme pour les arbres vivants, les arbres morts sur pied ainsi que les cassés (ceux ayant perdu une part importante de leur houppier) ou les chablis. Tous les arbres morts sur pied sont pris en compte, quelle que soit la date estimée de leur mort, mais seuls les volis ou cassés récents (5 ans ou moins) sont pris en compte. L'IFN considère qu'un arbre est mort s'il ne présente aucun signe de vie au-dessus de 1,30 m. 
+
+\subsubsection{Fonction \texttt{DeadEssGreco}}
+Elle fournit par grande région écologique (GRECO) et par année le taux de mortalité, c'est-à-dire le ratio en volume des arbres morts par rapport aux arbres vivants. Les données en entrée proviennent de la base arbres morts sur pied de l'IFN. N'ont été retenus que les arbres morts sur pied, pas les cassés, ni les volis.\\
+Les résultats est renvoyé sous forme de graphiques, de tableau ou de cartes.
+
+<<include=F>>=
+ess = "61"
+res = DeadEssGreco(ess)
+@
+
+<<eval=F>>=
+# Taux de mortalité
+g1 <- res$gpart + guides(color=F)
+grid.arrange(g1, res$gmort, ncol=2, widths=c(0.45, 0.55))
+@
+
+\begin{figure}[H]
+\begin{center}
+ \includegraphics[width=14cm]{/Users/maxbruciamacchie/pCloud Sync/Packages/DataForet/Documentation/Figures/MortSapin.png}
+\caption{\emph{Importance de l'essence dans la mortalité générale, par grande région écologique et par année.}}
+\label{MortSapin}
+\end{center}
+\end{figure}
+
+
+<<eval=F>>=
+# carte du dernier taux de mortalité
+g1 <- res$mappart
+grid.arrange(g1, res$mapmort, ncol=2, widths=c(0.5, 0.5))
+
+@
+
+\begin{figure}[H]
+\begin{center}
+ \includegraphics[height=7cm]{/Users/maxbruciamacchie/pCloud Sync/Packages/DataForet/Documentation/Figures/SapinGreco.png}
+\caption{\emph{Taux de mortalité de l'essence par grande région écologique et par année. Les régions grisées sont celles où l'essence est absente.}}
+\label{SapinGreco}
+\end{center}
+\end{figure}
+
+\subsubsection{Fonction \texttt{DeadEssSer}}
+Elle fournit par sylvoécorégion et par année, pour une essence donnée, le taux de mortalité. Il est défini comme le le ratio en volume des arbres morts sur pied par rapport aux arbres vivants, sur les deux dernières périodes de 5 ans. Les données en entrée proviennent de la base arbres morts sur pied de l'IFN. N'ont été retenus que les arbres morts sur pied, pas les cassés, ni les volis.\\
+Les résultats est renvoyé sous forme de tableau ou de carte.
+
+<<eval=F>>=
+ess = "61"
+res = DeadEssSer(ess)
+# sous forme tableau
+head(res$tab)
+# cartes du taux de mortablité sur les 2 dernières années
+res$mappart
+@
+
+\begin{figure}[H]
+\begin{center}
+ \includegraphics[height=7cm]{/Users/maxbruciamacchie/pCloud Sync/Packages/DataForet/Documentation/Figures/SapinSer.png}
+\caption{\emph{Sapin : taux de mortalité sur les deux dernières périodes de 5 ans. Les régions grisées sont celles où l'essence est absente.}}
+\label{SapinSer}
+\end{center}
+\end{figure}
+
+
+\section{Sols}
+Le classeur liens.xlsx contient des adresses url pour des caractéristiques de sols.
+<<eval=F>>=
+file <- system.file("Liens.xlsx", package = "DataForet")
+liens <- read_excel(file, sheet="R") %>%
+  filter(Catégorie == "Carbone") %>%
+  dplyr::select(Thème,Lien)
+# exemple : téléchargement des infos sur Carbone dans sol 0.15 m - 0.30 m
+download.file(url = as.character(liens[3,2]), "C_1530.tif")
+@
+
+Changement de projection et découpage sur les limites de la France métropolitaine.
+<<eval=F>>=
+data("ser25")
+france <- ser25 %>% 
+  filter(greco !="K") %>% 
+  dplyr::select(geometry) %>% 
+  st_transform(4326)
+
+r <- raster("C_100200.tif") %>% 
+  crop(france) %>% 
+  mask(france)
+r1 <- projectRaster(r, crs=CRS('+init=EPSG:2154'))
+writeRaster(r1, "C_100200.tif", format="GTiff", overwrite=TRUE)
+@
+
+Utilisation sur une propriété
+<<eval=F>>=
+data(FD, package = "PPtools")
+perim <- FD %>% filter(IIDTN_FRT == "F10451Y")
+
+C_1530   <- raster("~/pCloud Drive/Bureau/GeoData/Sols/C_1530.tif")
+C_3060   <- raster("~/pCloud Drive/Bureau/GeoData/Sols/C_3060.tif") 
+C_60100  <- raster("~/pCloud Drive/Bureau/GeoData/Sols/C_60100.tif")
+C_100200 <- raster("~/pCloud Drive/Bureau/GeoData/Sols/C_100200.tif")
+
+s <- stack(C_1530,C_3060,C_60100,C_100200) %>% 
+  crop(perim) %>% 
+  mask(perim)
+
+par(mar=c(0,0,0,0))
+plot(s, axes=F, box=F)
+@
+
+
+\section{Mise à jour des tables}
+\subsection{IFNdata}
+Cette fonction permet de télécharger les données brutes de l'IFN à partir du site https://inventaire-forestier.ign.fr/IMG/zip/. Elle charge les données de 2005 aux dernières campagnes de mesures et renvoie en sortie les 3 tables IFNarbres, IFNarbres\_morts et IFNplacettes
+
+<<eval=F>>=
+library(rvest)
+IFNdata()
+# ou bien
+res <- IFNdata(FALSE)
+IFNarbres <- res$IFNarbres
+IFNarbres_morts <- res$IFNarbres_morts
+IFNplacettes <- res$IFNplacettes
+@
+
+\subsection{ProtectDataCreate}
+La fonction crée un objet qui rassemble tous les statuts de protections disponibles sur le serveur du Muséum d'Histoire naturelle.
+<<eval=F>>=
+Protect <- ProtectDataCreate()
+@
+
+
+
+
+
+
+\end{document}

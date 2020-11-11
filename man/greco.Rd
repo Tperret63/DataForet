@@ -5,7 +5,7 @@
 \alias{greco}
 \title{Grandes Régions Ecologiques (GRECO).}
 \format{
-Fichier géoréférencé au format sf contenant 11 grandes régions écologiques
+Fichier géoréférencé au format sf contenant les 11 grandes régions écologiques
 }
 \source{
 \url{https://inventaire-forestier.ign.fr/spip.php?article729}

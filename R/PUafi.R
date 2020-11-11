@@ -1,6 +1,8 @@
 #' Grille de prix fixes de l'Association Futaie Irrégulière (AFI)
 #'
-#' @description Mercuriale fixe des prix du bois ventilée par essence, grosseur et qualité. Ces prix ont été fixés par consensus entre les experts membres de l’association, en considérant des prix moyens du marché de l’année 1995. 
+#' @description Mercuriale fixe des prix du bois ventilée par essence, grosseur et qualité, proposée par l'Association AFI. 
+#' Ces prix ont été fixés par consensus entre les experts membres de l’association, en estimant les prix moyens 
+#' du marché à l’année 1995. 
 #'
 #' @format data frame
 #' 
