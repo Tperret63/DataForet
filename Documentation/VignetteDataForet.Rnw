@@ -332,10 +332,27 @@ res$mappart
 \end{center}
 \end{figure}
 
+\subsubsection{Fonction \texttt{DeadBranch}}
+L'IFN note également pour tous les arbres vivants non surcimés l'importance de la mortalité des branches dans la partie supérieure du houppier. Le code 4 correspond à plus de 95\% des branches mortes. Le code 3 à une mortalité comprise entre 50 et 95\%. La fonction renvoie sous forme de graphique, l'évolution au cours du temps du taux de mortalité. Il est calculé pour chacun des codes comme le ratio en volume des tiges possédant la caractéristique en référence au volume total de l'essence.
+<<evol=F, fig.pos='H', fig.height=3, fig.cap="Exemple d'évolution au cours du temps de la mortalité des branches.">>=
+DeadBranch(c("10","17C"))
+DeadBranch(c("51","52","61","62","64")) 
+DeadBranch(c("02","03","05","09","11","15S"))
+@
 
-\section{Sols}
-Le classeur liens.xlsx contient des adresses url pour des caractéristiques de sols.
+
+\section{Recherche dans des bases de données}
+Le classeur liens.xlsx contient des nombreuses adresses url permettant de télécharger des données. 
 <<eval=F>>=
+library(readxl)
+file <- system.file("Liens.xlsx", package = "DataForet")
+liens <- read_excel(file, sheet="R")
+@
+
+\subsection{Carbone dans le sol}
+A titre d'exemple, le script ci-dessous permet de télécharger des informations sur la quantité de carbone contenu dans le sol entre 15 et 30 cm de profondeur..
+<<eval=F>>=
+library(readxl)
 file <- system.file("Liens.xlsx", package = "DataForet")
 liens <- read_excel(file, sheet="R") %>%
   filter(Catégorie == "Carbone") %>%
