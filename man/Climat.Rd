@@ -8,7 +8,8 @@
 Data frame contenant 36211 lignes et 19 variables.
 }
 \source{
-\url{http://cybergeo.revues.org/26894?file=1}
+\url{http://cybergeo.revues.org/26894?file=1
+https://doi.org/10.4000/cybergeo.23155}
 }
 \usage{
 Climat
@@ -44,7 +45,7 @@ des 30 valeurs de température mensuelles au cours de la normale de référence}
 
 \item{PEE}{= Variabilité interannuelle des précipitations en juillet}
 
-\item{PRA}{= Rapport entre les abats d’automne (septembre + octobre) et ceux de juille}
+\item{PRA}{= Rapport entre les abats d’automne (septembre + octobre) et ceux de juillet}
 
 \item{Type}{= typologie des climats. 1:Montagne, 2:Semi-continental, 3:Océanique dégradé
 4:Océanique altéré, 5:Océanique, 6:Méditerranéen altéré, 7:Bassin du Sud-Ouest, 8:Méditerranéen))}
@@ -53,7 +54,8 @@ des 30 valeurs de température mensuelles au cours de la normale de référence}
 }
 \description{
 Données climatiques par communes. Proposition d'une typologie. 
-Coordonnées sur les 3 premiers axes d'une AFC.
+Coordonnées sur les 3 premiers axes d'une AFC. Extrait de Les types de climats en France, une construction spatiale
+Auteurs : Daniel Joly, Thierry Brossard, Hervé Cardot, Jean Cavailhes, Mohamed Hilal et Pierre Wavresky
 }
 \examples{
 library(sf)

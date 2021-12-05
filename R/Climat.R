@@ -1,7 +1,8 @@
 #' Climat des communes de la France métropolitaine.
 #'
 #' @description Données climatiques par communes. Proposition d'une typologie. 
-#' Coordonnées sur les 3 premiers axes d'une AFC.
+#' Coordonnées sur les 3 premiers axes d'une AFC. Extrait de Les types de climats en France, une construction spatiale
+#' Auteurs : Daniel Joly, Thierry Brossard, Hervé Cardot, Jean Cavailhes, Mohamed Hilal et Pierre Wavresky
 #'
 #' @format Data frame contenant 36211 lignes et 19 variables.
 #' 
@@ -21,7 +22,7 @@
 #' @param PJE = Nombre de jours de précipitation en juillet
 #' @param PEH = Variabilité interannuelle des précipitations en janvier
 #' @param PEE = Variabilité interannuelle des précipitations en juillet
-#' @param PRA = Rapport entre les abats d’automne (septembre + octobre) et ceux de juille
+#' @param PRA = Rapport entre les abats d’automne (septembre + octobre) et ceux de juillet
 #' @param Type = typologie des climats. 1:Montagne, 2:Semi-continental, 3:Océanique dégradé
 #' 4:Océanique altéré, 5:Océanique, 6:Méditerranéen altéré, 7:Bassin du Sud-Ouest, 8:Méditerranéen))
 #' @param axe1, axe2, axe3 = coordonnées factorielles
@@ -53,7 +54,8 @@
 #'   geom_sf(data=greco, fill=NA, color="white", size=0.5) +
 #'   theme_bw()
 #'  
-#' @source \url{http://cybergeo.revues.org/26894?file=1}
+#' @source \url{http://cybergeo.revues.org/26894?file=1
+#' https://doi.org/10.4000/cybergeo.23155}
 
 "Climat"
 

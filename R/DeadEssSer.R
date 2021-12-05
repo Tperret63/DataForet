@@ -42,7 +42,7 @@ DeadEssSer <- function(ess){
     group_by(Annee, ser) %>%
     mutate(Pourc = VolT / sum(VolT)) %>% 
     dplyr::select(Annee:Ess,VolT,Pourc) %>% 
-  filter(Ess == nomEss)
+    filter(Ess == nomEss)
   
   t2 <- IFNarbres_morts %>% 
     filter(veget %in% c("5","C")) %>% 
