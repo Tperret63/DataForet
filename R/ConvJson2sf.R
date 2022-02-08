@@ -19,5 +19,3 @@ ConvJson2sf <- function(myurl){
   sf <- geojson_sf(myurl)
   return(sf)
 }
-myurl <- "/Users/maxbruciamacchie/Downloads/cadastre-10210-parcelles.json"
-sf <- geojson_sf(myurl)
